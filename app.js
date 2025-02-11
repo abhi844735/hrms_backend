@@ -11,15 +11,20 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-    origin: "http://localhost:5173", // Adjust as per your frontend
+    origin: "https://hrms-frontend-chi.vercel.app", // Adjust as per your frontend
     credentials: true
 }));
-
 
 app.use("/api/v1/auth",authRoute);
 app.use("/api/v1/employees",employeeRoute);
 app.use("/api/v1/leaves",leaveRoute);
-
+app.get("/",async(req,res)=>{
+    try {
+        res.json({message:"welcome to hrms backend"});
+    } catch (error) {
+        res.status(500).json({message:error.message});
+    }
+})
 app.listen(process.env.Server_PORT,async()=>{
     try {
         await connectToDatabase();
