@@ -1,0 +1,81 @@
+  Auth Controller Api's :-
+
+http://localhost:8080/api/v1/auth/register    => Post method
+       payload = > {
+    "name": "Mike hussain",
+    "email": "pabhi4407@gmail.com",
+    "password": "123456",
+    "department": "Operation",
+    "role": "hr",
+    "contact": "2525252525"
+},
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "123456",
+    "department": "Software",
+    "role": "admin",
+    "contact": "9876543210"
+},
+{
+    "name": "Shivam Kumar Jha",
+    "email": "shivamkumarjha711@gmail.com",
+    "password": "123456",
+    "department": "Software",
+    "role": "employee",
+    "contact": "9532711329"
+}
+
+
+
+http://localhost:8080/api/v1/auth/login   => Post method
+payload = > {
+    "email":"john@example.com",
+    "password":"123456"
+}
+http://localhost:8080/api/v1/auth/logout  => Get method
+
+
+
+Employee Controller Api's :-
+
+http://localhost:8080/api/v1/employees/loggedInEmployeeDetail => Get method
+     middleware => authController
+
+http://localhost:8080/api/v1/employees/update => LoggedInUserCanUPdateProfile => Put method
+      middleware => authController
+      payload = > const { name, contact, department } = req.body;
+
+
+http://localhost:8080/api/v1/employees/getAllEmployeesDetail => Get method
+      middleware => authController,roleController([hr]) // accessed to HR only;
+
+
+http://localhost:8080/api/v1/employees/delete/:id => Delete Method
+middleware => authController,roleController([hr]) // accessed to HR only;
+ id=> EMPLOYEE_ID
+
+
+ Leave Controller Api's =>
+
+ http://localhost:8080/api/v1/leaves/request => Post Method
+  middleware => authMiddleware
+  payload => {
+    "leaveType": "Sick Leave",
+    "leaveApplyDates": ["2025-02-15", "2025-02-16"],
+    "reason": "Feeling unwell with fever and cold."
+}
+
+
+http://localhost:8080/api/v1/leaves/loggedInUserLeaves => Get Method
+middleware => authMiddleware
+
+http://localhost:8080/api/v1/leaves/:leaveId/cancel => delete Method
+ middleware => authMiddleware
+
+ http://localhost:8080/api/v1/leaves/allEmployeeLeaves => Get Method
+ middleware => authMiddleware,roleController([hr]) // accessed to HR only;
+
+ http://localhost:8080/api/v1/leaves/:leaveId/status => Put Method 
+ middleware => authMiddleware,roleController([hr]) // accessed to HR only;
+ payload => body = {status : "Approved" or "Rejected"};
