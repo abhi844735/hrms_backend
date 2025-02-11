@@ -12,7 +12,9 @@ app.use(cookieParser());
 
 app.use(cors({
     origin: "https://hrms-frontend-chi.vercel.app", // Adjust as per your frontend
-    credentials: true
+    credentials: true, // Allow cookies
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use("/api/v1/auth",authRoute);
