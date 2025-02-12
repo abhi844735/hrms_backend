@@ -9,6 +9,7 @@ const leaveRoute = require("./routes/leave.route");
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+// edit commit 
 
 // app.use(cors({
 //     origin: "http://localhost:5173", // Adjust as per your frontend
