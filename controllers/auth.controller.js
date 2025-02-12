@@ -31,7 +31,6 @@ exports.register = async (req, res) => {
 exports.login = async(req,res)=>{
     try {
         const { email, password } = req.body;
-
         // Check if user exists
         const employee = await Employee.findOne({ email });
         if (!employee) return res.status(400).json({ message: "Invalid email" });
@@ -47,25 +46,25 @@ exports.login = async(req,res)=>{
         );
         
         // Store token in HTTP-Only Cookie
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: true, // Important for deployment
-            sameSite: "None", // Allow cross-origin cookies
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-          });
+        // res.cookie("token", token, {
+        //     // httpOnly: true,
+        //     // secure: true, // Important for deployment
+        //     // sameSite: "None", // Allow cross-origin cookies
+        //     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        //   });
 
-        res.status(200).json({ message: "Login successful", user: { name: employee.name, email: employee.email, role: employee.role }, });
+        res.status(200).json({ message: "Login successful", user: { name: employee.name, email: employee.email, role: employee.role,token }, });
 
     } catch (error) {
          res.status(500).json({ message: "Server Error", error });
     }
 };
 exports.logout = async(req,res)=>{
-    res.cookie("token", "", {
-        httpOnly: true,
-        secure: true,
-        sameSite: "None",
-        maxAge: 0, // Expire immediately
-      });
+    // res.cookie("token", "", {
+    //     // httpOnly: true,
+    //     // secure: true,
+    //     // sameSite: "None",    
+    //     maxAge: 0, // Expire immediately
+    //   });
       res.status(200).json({ message: "Logged out successfully" });
 }
