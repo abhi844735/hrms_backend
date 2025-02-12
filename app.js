@@ -17,7 +17,7 @@ app.use(cookieParser());
 //     allowedHeaders: ["Content-Type", "Authorization"]
 // }));
 app.use(cors());
-
+// demo commit
 app.use("/api/v1/auth",authRoute);
 app.use("/api/v1/employees",employeeRoute);
 app.use("/api/v1/leaves",leaveRoute);
